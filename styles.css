@@ -1315,6 +1315,118 @@ img, svg, picture {
     .contact-methods { gap: 12px !important; }
 }
 
+/* Improved contact layout: icon fixed width, details can shrink and wrap cleanly */
+.contact-item {
+    align-items: center;
+}
+.contact-icon {
+    flex: 0 0 36px; /* reserve fixed space for icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+.contact-details {
+    flex: 1 1 auto;
+    min-width: 0; /* allow flex child to shrink */
+}
+
+@media (max-width: 640px) {
+    .contact-icon { flex: 0 0 28px; font-size: 20px; }
+    .contact-details p, .contact-details a { font-size: 14px !important; }
+}
+
+/* Very small screens: further reduce contact typography to avoid wrapping (phones with narrow widths) */
+@media (max-width: 360px) {
+    .contact-details p, .contact-details a { font-size: 13px !important; }
+    .contact-icon { flex: 0 0 24px; font-size: 18px; }
+    .contact-item { padding: 8px !important; gap: 8px !important; }
+}
+
+/* Force a 2-column grid for contact items on the smallest phones so the icon never stacks above text */
+@media (max-width: 420px) {
+    .contact-item {
+        display: grid !important;
+        grid-template-columns: 36px 1fr !important;
+        gap: 10px !important;
+        align-items: center !important;
+    }
+
+    .contact-icon {
+        flex: none !important;
+        justify-self: start !important;
+        font-size: 18px !important;
+        width: 36px !important;
+        height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .contact-details {
+        min-width: 0 !important;
+    }
+
+    .contact-details h4 { margin: 0 0 4px 0 !important; font-size: 12px !important; }
+    .contact-details p, .contact-details a {
+        margin: 0 !important;
+        font-size: 13px !important;
+        /* Avoid breaking individual characters inside the email address. Allow wrapping at natural break points. */
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        white-space: normal !important;
+        display: inline-block !important;
+        max-width: 100%;
+    }
+}
+
+/* Modal behaviour: prevent background scrolling when modal open, make modal content scrollable */
+body.modal-open { overflow: hidden; }
+
+.privacy-panel {
+    max-height: 96vh;
+}
+.privacy-local-content {
+    max-height: calc(96vh - 120px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cookie-modal-panel {
+    max-height: 96vh;
+    overflow: auto;
+}
+
+/* Final fix: for smallest screens stack icon above the contact text to prevent email splitting */
+@media (max-width: 360px) {
+    .contact-item {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 6px !important;
+        padding: 6px !important;
+    }
+
+    .contact-icon {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 18px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .contact-details {
+        width: 100% !important;
+    }
+
+    .contact-details p, .contact-details a {
+        display: block !important;
+        white-space: normal !important;
+        word-break: normal !important;
+        overflow-wrap: break-word !important;
+        font-size: 13px !important;
+    }
+}
+
 /* Tweak contact typography on small screens so email/phone don't wrap awkwardly with the icon */
 @media (max-width: 640px) {
     .contact-icon {

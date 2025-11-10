@@ -44,6 +44,8 @@ function openPrivacyModal() {
     if (!modal) return;
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
+    // prevent background scrolling when modal is open
+    document.body.classList.add('modal-open');
 }
 
 function closePrivacyModal() {
@@ -51,6 +53,7 @@ function closePrivacyModal() {
     if (!modal) return;
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
 }
 
 // Close privacy modal when clicking outside panel or pressing Escape
@@ -70,6 +73,7 @@ function closeCookieSettings() {
     if (!modal) return;
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
 }
 
 function hideCookieBanner() {
