@@ -1,0 +1,1348 @@
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Zmienne CSS */
+:root {
+    --primary: #ffb100;
+    --secondary: #1c1c1c;
+    --text: #333;
+    --light: #f8f9fa;
+    --cream: #fff8ec;
+    --white: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --header-height: 120px;
+    --header-height-mobile: 88px;
+}
+
+/* Podstawowe style body */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    overflow-x: hidden;
+    background: var(--cream);
+}
+
+/* Ensure the rest of the page is pushed down under the fixed navbar.
+   We set this via a CSS variable that JS keeps in sync with the real navbar height. */
+body {
+    padding-top: var(--header-height, 120px);
+    transition: padding-top 180ms ease;
+}
+
+/* Nawigacja */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px var(--shadow);
+    z-index: 1000;
+    transition: all 0.3s;
+}
+
+.navbar.scrolled {
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.15);
+}
+
+.nav-container {
+    /* full-bleed header so logo and title can sit at the viewport edges */
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 6px 8px; /* minimal padding to keep flush feel */
+    display: flex;
+    justify-content: space-between; /* logo left, title right */
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* Make navbar background white so logo with white background looks correct */
+.navbar {
+    background: var(--white);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 140px; /* larger on desktop as requested */
+    width: auto;
+    display: block;
+    margin-right: 0; /* flush to the left */
+    max-width: 40vw;
+}
+
+.logo-left {
+    display: flex;
+    align-items: center;
+}
+
+.site-title {
+    margin-left: auto; /* push title to the far right */
+    text-align: right;
+    padding-right: 12px; /* small gap from edge */
+}
+
+/* Make title larger and responsive */
+.site-title .title-main {
+    font-size: clamp(20px, 2.6vw, 40px);
+    line-height: 1.05;
+}
+
+.site-title .nav-tagline {
+    font-size: clamp(12px, 1.4vw, 16px);
+}
+
+.site-title {
+    text-align: right;
+}
+
+.site-title .title-main {
+    /* larger responsive title to match bigger logo */
+    font-size: clamp(22px, 3.2vw, 48px);
+    font-weight: 800;
+    color: var(--primary); /* use orange primary color as requested */
+}
+
+.site-title .nav-tagline {
+    font-size: 13px;
+    color: #666;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.nav-tagline {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 400;
+}
+
+/* Sekcja Hero */
+.hero {
+    /* Hero uses modest internal padding because body already reserves space for the header. */
+    padding: 20px 20px 40px;
+    background: linear-gradient(135deg, var(--cream) 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 177, 0, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -30px) rotate(120deg); }
+    66% { transform: translate(-20px, 20px) rotate(240deg); }
+}
+
+.hero-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    color: var(--secondary);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Przyciski */
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: var(--secondary);
+    box-shadow: 0 4px 20px rgba(255, 177, 0, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 30px rgba(255, 177, 0, 0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--secondary);
+    border: 2px solid var(--secondary);
+}
+
+.btn-outline:hover {
+    background: var(--secondary);
+    color: var(--white);
+}
+
+.btn-full-width {
+    width: 100%;
+}
+
+/* Siatka ubezpieczeń */
+.insurance-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.insurance-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: all 0.3s;
+    text-align: center;
+    cursor: pointer;
+}
+
+.insurance-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(255, 177, 0, 0.2);
+}
+
+.insurance-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.icon-img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.feature-img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+    display: block;
+}
+
+.contact-icon-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+/* Contact card (used instead of a form) */
+.contact-card {
+    background: rgba(255,255,255,0.06);
+    padding: 28px;
+    border-radius: 12px;
+}
+
+.insurance-card h3 {
+    color: var(--secondary);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.insurance-card p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Sekcja Features */
+.features {
+    padding: 48px 24px;
+    background: var(--white);
+    /* Remove forced min-height: caused the section to expand to viewport height and stretched content.
+       Keep the section compact and center it via container width below. */
+    display: block;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Make the 'Dlaczego my?' section intentionally narrower than the main container to avoid it
+   taking the full width/height and appearing stretched. This centers the content and keeps
+   the grid compact on large screens. */
+.features .container {
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 12px;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 42px;
+    color: var(--secondary);
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 28px;
+}
+
+.privacy {
+    padding: 40px 20px;
+    background: #fffef8; /* subtle cream */
+}
+
+.privacy .privacy-content {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #444;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.feature-card {
+    text-align: center;
+    padding: 40px 30px;
+    border-radius: 20px;
+    background: var(--light);
+    transition: all 0.3s;
+}
+
+.feature-card:hover {
+    background: var(--white);
+    box-shadow: 0 10px 40px var(--shadow);
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.feature-card h3 {
+    color: var(--secondary);
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* Sekcja Proces */
+.process {
+    padding: 80px 40px;
+    background: var(--light);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.step {
+    text-align: center;
+    position: relative;
+}
+
+.step::after {
+    content: '→';
+    position: absolute;
+    top: 40px;
+    right: -15px;
+    font-size: 30px;
+    color: var(--primary);
+}
+
+.step:last-child::after {
+    display: none;
+}
+
+.step-number {
+    width: 80px;
+    height: 80px;
+    background: var(--primary);
+    color: var(--secondary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 20px rgba(255, 177, 0, 0.3);
+}
+
+.step h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--secondary);
+}
+
+.step p {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Sekcja Kontakt */
+.contact {
+    padding: 80px 40px;
+    background: linear-gradient(135deg, var(--secondary) 0%, #2a2a2a 100%);
+    color: var(--white);
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.contact-info h2 {
+    font-size: 38px;
+    margin-bottom: 30px;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    transition: all 0.3s;
+}
+
+.contact-item:hover {
+    background: rgba(255, 177, 0, 0.1);
+    transform: translateX(10px);
+}
+
+.contact-icon {
+    font-size: 32px;
+    color: var(--primary);
+}
+
+.contact-details h4 {
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 5px;
+    font-weight: 400;
+}
+
+.contact-details p {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.contact-details a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.form-placeholder {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.form-placeholder h3 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.form-placeholder p {
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+/* Sekcja Mapa */
+.map-section {
+    padding: 80px 40px;
+    background: var(--white);
+}
+
+.map-container {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 50px var(--shadow);
+}
+
+.map-placeholder {
+    background: #f0f0f0;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.map-icon {
+    font-size: 60px;
+}
+
+.map-placeholder p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Footer */
+footer {
+    background: var(--secondary);
+    color: var(--white);
+    padding: 60px 40px 30px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+}
+
+.footer-about h3 {
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.footer-about p {
+    color: #aaa;
+    line-height: 1.8;
+}
+
+.footer-links h4 {
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links a {
+    color: #aaa;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--primary);
+    padding-left: 10px;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #888;
+}
+
+/* Cookie Consent */
+.cookie-consent {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--secondary);
+    color: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    max-width: 400px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.cookie-consent.hidden {
+    display: none;
+}
+
+.cookie-consent h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.cookie-consent p {
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cookie-buttons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.accept-all {
+    background: var(--primary);
+    color: var(--secondary);
+}
+
+.accept-all:hover {
+    transform: scale(1.05);
+}
+
+.manage-cookies {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--white);
+}
+
+/* Modal ustawień cookies */
+.cookie-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    z-index: 20000;
+}
+
+.cookie-modal.hidden {
+    display: none;
+}
+
+.cookie-modal-panel {
+    background: var(--white);
+    color: var(--secondary);
+    width: min(720px, 95%);
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+
+.cookie-modal-panel h3 {
+    margin-bottom: 8px;
+}
+
+.cookie-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.cookie-row:last-of-type {
+    border-bottom: none;
+}
+
+.cookie-modal-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+/* Privacy modal styles */
+.privacy-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 20000;
+}
+
+.privacy-modal.hidden { display: none; }
+
+.privacy-panel {
+    width: min(1100px, 96%);
+    height: min(85vh, 900px);
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.privacy-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.privacy-panel-body {
+    flex: 1 1 auto;
+    background: #fff;
+}
+
+.privacy-panel-body iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.privacy-local-content {
+    padding: 20px 26px;
+    height: 100%;
+    overflow: auto;
+    color: #333;
+}
+
+/* Responsive header: stack logo and title on mobile */
+@media (max-width: 640px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .logo-img {
+        height: 72px;
+    }
+
+    .site-title {
+        text-align: center;
+    }
+
+    .site-title .title-main {
+        font-size: 18px;
+    }
+
+    .site-title .nav-tagline {
+        font-size: 12px;
+    }
+
+    .privacy-panel {
+        width: 96%;
+        height: 85vh;
+    }
+}
+
+/* Improve grid responsiveness across browsers */
+.insurance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    margin-top: 60px;
+}
+
+/* Make call-to-action buttons large and finger-friendly on mobile */
+.cta-buttons .btn {
+    min-height: 48px;
+}
+
+/* Ensure footer and other content use comfortable max-width */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Ensure hero has adequate top spacing so fixed header doesn't overlap */
+.hero {
+    padding-top: 160px; /* extra space for larger header */
+}
+
+@media (max-width: 968px) {
+    .hero {
+        padding-top: 120px;
+    }
+}
+
+.privacy-panel-footer {
+    padding: 12px 20px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    display:flex;
+    justify-content:flex-end;
+}
+
+.close-privacy {
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Overlay for content restricted by cookies */
+.cookie-restricted {
+    position: relative;
+}
+
+.cookie-restricted::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.85);
+    display: block;
+    border-radius: 12px;
+}
+
+.cookie-restricted .restricted-message {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Animacje */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.slide-up {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.slide-up.visible {
+    animation: slideUpAnim 0.6s ease-out forwards;
+}
+
+@keyframes slideUpAnim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries - Responsywność */
+@media (max-width: 968px) {
+    .hero-container,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .step::after {
+        display: none;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-content h1 {
+        font-size: 32px;
+    }
+
+    .section-title {
+        font-size: 32px;
+    }
+
+    .features-grid,
+    .insurance-grid,
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cookie-consent {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+
+    /* mobile: tighten paddings and font sizes for better fit */
+    .hero {
+        padding-top: 110px;
+        padding-bottom: 40px;
+    }
+
+    .hero-content h1 { font-size: 26px; }
+    .hero-subtitle { font-size: 15px; }
+
+    .section-title { font-size: 28px; }
+    .section-subtitle { font-size: 14px; margin-bottom: 18px; }
+
+    .nav-container { padding: 8px 12px; }
+    .logo-img { height: 64px; }
+
+    .cta-buttons .btn { padding: 12px 18px; }
+
+
+/* small desktop tweaks to make 'Dlaczego my?' fit full HD view */
+@media (min-width: 1200px) {
+    .features {
+        padding: 56px 80px;
+    }
+    .features-grid { gap: 28px; }
+}
+
+/* Aggressive compaction for small devices: make header non-fixed, shrink logos and paddings */
+@media (max-width: 640px) {
+    /* Make the header non-fixed so it doesn't cover content on smaller devices */
+    .navbar {
+        position: static !important;
+        top: auto !important;
+        background: var(--white) !important;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06) !important;
+    }
+
+    /* Remove the global body padding reserved for fixed header when header is static */
+    body {
+        padding-top: 0 !important;
+    }
+
+    .logo-img {
+        height: 40px !important;
+        max-width: 60vw !important;
+    }
+
+    /* hide the tagline to save vertical space on very small screens */
+    .site-title .nav-tagline {
+        display: none !important;
+    }
+
+    .site-title .title-main {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+    }
+
+    /* Reduce hero spacing dramatically on small devices */
+    .hero {
+        padding: 12px 12px 24px !important;
+    }
+
+    .hero-content h1 { font-size: 20px !important; }
+    .hero-subtitle { font-size: 13px !important; }
+
+    /* Narrow the 'Dlaczego my?' container even more to avoid stretching */
+    .features .container { max-width: 760px; padding: 0 8px; }
+
+    /* Make grids single-column and compact */
+    .features-grid, .insurance-grid, .process-steps {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .feature-card, .insurance-card {
+        padding: 12px !important;
+        border-radius: 10px !important;
+    }
+
+    .contact-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+
+    /* Make cookie modal and privacy modal full-screen panels on small phones */
+    .cookie-modal-panel {
+        width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        padding: 16px !important;
+        box-sizing: border-box;
+    }
+
+    .cookie-modal { align-items: flex-end; }
+
+    .privacy-panel {
+        width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+    }
+
+    /* Keep cookie consent box from covering the viewport */
+    .cookie-consent {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: 12px !important;
+        max-width: none !important;
+        padding: 12px !important;
+    }
+
+    /* Reduce font sizes site-wide slightly on small devices */
+    html, body { font-size: 15px; }
+}
+/* small desktop tweaks kept above; now add focused mobile overrides to fix stacking/overflow issues */
+
+/* Additional targeted mobile fixes */
+@media (max-width: 480px) {
+    /* Reduce logo so header doesn't take too much vertical space */
+    .logo-img {
+        height: 56px !important;
+        max-width: 180px;
+    }
+
+    /* When stacked, remove auto margins that can push content off-center */
+    .site-title {
+        margin: 0 !important;
+        padding: 0 6px;
+        text-align: center;
+    }
+
+    .site-title .title-main {
+        font-size: 16px !important;
+        line-height: 1.05;
+    }
+
+    .site-title .nav-tagline {
+        font-size: 12px !important;
+    }
+
+    .nav-container {
+        padding: 8px 12px !important;
+    }
+
+    /* Reduce hero top padding so content is visible without excessive scrolling */
+    .hero {
+        padding-top: 96px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+        padding-bottom: 36px !important;
+        background-position: center top;
+    }
+
+    .hero-container {
+        gap: 18px !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .hero-content h1 { font-size: 22px !important; }
+    .hero-subtitle { font-size: 14px !important; }
+
+    /* Make cards more compact on small screens */
+    .insurance-card, .feature-card {
+        padding: 16px !important;
+        border-radius: 12px !important;
+    }
+
+    .features-grid, .insurance-grid, .process-steps {
+        gap: 14px !important;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+        padding: 18px !important;
+    }
+
+    /* Make cookie consent and modals fit comfortably */
+    .cookie-consent {
+        left: 12px !important;
+        right: 12px !important;
+        bottom: 12px !important;
+        max-width: none !important;
+        padding: 14px !important;
+    }
+
+    .cookie-modal-panel {
+        width: 96% !important;
+        padding: 16px !important;
+    }
+
+    .privacy-panel {
+        width: 98% !important;
+        height: 92vh !important;
+        border-radius: 10px !important;
+    }
+
+    /* Ensure CTA buttons are finger-friendly but do not overflow */
+    .cta-buttons .btn { padding: 12px 14px !important; font-size: 15px !important; }
+
+    /* Avoid large fixed header assumption: ensure JS computed offset still works */
+    /* (No JS change needed — keeping CSS small to reduce header height) */
+}
+
+/* Extra safe rules for very narrow viewports to prevent overflow */
+@media (max-width: 360px) {
+    .logo-img { height: 48px !important; }
+    .hero-content h1 { font-size: 20px !important; }
+    .section-title { font-size: 24px !important; }
+    .site-title .title-main { font-size: 15px !important; }
+}
+
+/* For very small screens, avoid a large fixed header that covers content while still keeping it visible */
+@media (max-width: 420px) {
+    /* Make the header non-fixed on very small screens to prevent it covering content */
+    .navbar {
+        position: static !important;
+        top: auto !important;
+        backdrop-filter: none !important;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06) !important;
+    }
+
+    /* When header is non-fixed we don't need the body top padding */
+    body {
+        padding-top: 0 !important;
+    }
+
+    .logo-img {
+        height: 40px !important;
+        max-width: 60vw !important;
+    }
+}
+
+/* Global defensive responsive fixes (override messy earlier rules) */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, svg, picture {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Normalize navbar padding so content doesn't overflow horizontally */
+.nav-container {
+    padding: 10px 16px !important;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+/* Prevent very long titles or unexpected content from forcing horizontal scroll */
+.site-title {
+    max-width: calc(100% - 140px);
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.logo-img {
+    max-width: 220px !important;
+    height: auto !important;
+}
+
+}
+
+/* Final layout corrections to ensure later rules don't re-introduce big top paddings */
+.hero {
+    padding: 20px 16px 40px !important;
+}
+
+.hero-container {
+    max-width: 1200px;
+    padding: 0 16px;
+    gap: 40px;
+}
+
+@media (max-width: 968px) {
+    .hero-container {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+}
+
+/* Second-pass aggressive fixes for tablets and phones */
+@media (max-width: 1024px) {
+    /* make header static to avoid overlap on tablets */
+    .navbar {
+        position: static !important;
+        top: auto !important;
+        box-shadow: 0 1px 8px rgba(0,0,0,0.06) !important;
+    }
+
+    body { padding-top: 0 !important; }
+
+    /* reduce logo for tablets */
+    .logo-img { height: 56px !important; max-width: 40vw !important; }
+
+    /* hide decorative blobs on smaller screens to avoid unexpected overflow */
+    .hero::before { display: none !important; }
+
+    /* narrow feature container on tablet to avoid stretching */
+    .features .container { max-width: 880px !important; padding: 0 12px !important; }
+
+    /* tighten gaps */
+    .features-grid, .insurance-grid, .process-steps { gap: 18px !important; }
+
+    /* reduce big paddings site-wide */
+    .process, .contact, .map-section { padding: 40px 16px !important; }
+}
+
+/* Contact layout fixes for small screens to avoid fields stretching */
+@media (max-width: 640px) {
+    .contact-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+        padding: 0 12px !important;
+    }
+
+    .contact-item {
+        padding: 12px !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .contact-details {
+        min-width: 0 !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .contact-details p {
+        white-space: normal !important;
+    }
+
+    .contact-methods { gap: 12px !important; }
+}
+
+/* Tweak contact typography on small screens so email/phone don't wrap awkwardly with the icon */
+@media (max-width: 640px) {
+    .contact-icon {
+        font-size: 22px !important;
+    }
+
+    .contact-details h4 {
+        font-size: 13px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .contact-details p,
+    .contact-details a {
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        line-height: 1.2 !important;
+        white-space: normal !important;
+        word-break: break-word !important;
+    }
+
+    /* ensure icon and text align without pushing each other off-screen */
+    .contact-item {
+        align-items: flex-start !important;
+    }
+}
+
+/* Larger logo tuning for big screens */
+@media (min-width: 1400px) {
+    .logo-img { height: 160px !important; }
+    .site-title .title-main { font-size: clamp(28px, 2.2vw, 56px); }
+}
